@@ -21,6 +21,7 @@ while [[ $# -gt 0 ]]; do
       shift
       IMAGE_TAG="$1"
       shift
+      ;;
     -h|--help)
       show_usage
       exit 0
