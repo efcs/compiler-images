@@ -74,6 +74,8 @@ RUN ./config.sh --unattended \
    --work /home/actions-runner/work \
    --replace
 
+RUN sudo systemctl enable docker
+RUN sudo systemctl enable dbus
 RUN sudo service docker start
 RUN sudo service dbus start
 
