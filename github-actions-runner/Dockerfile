@@ -4,7 +4,7 @@
 #===-------------------------------------------------------------------------------------------===//
 
 
-FROM ubuntu AS runner
+FROM debian9 AS runner
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
