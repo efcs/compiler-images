@@ -1,7 +1,7 @@
 FROM docker:stable
 
 
-ADD ../ .
+ADD ./ .
 
 COPY entrypoint.sh /entrypoint.sh
 
