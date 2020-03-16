@@ -38,7 +38,7 @@ RUN apt-get update && \
       systemd \
       sysvinit-utils \
       systemd-sysv \
-      gnugp-agent \
+      gnupg-agent \
       fish \
       fish-common \
        && \
