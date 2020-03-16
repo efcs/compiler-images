@@ -9,8 +9,7 @@
 # Build GCC versions
 FROM marketplace.gcr.io/google/debian9 AS test
 
-LABEL image.name=compiler-test-image
-LABEL image.tag=latest
+LABEL built_on=march-2020
 
 RUN echo hello
 
