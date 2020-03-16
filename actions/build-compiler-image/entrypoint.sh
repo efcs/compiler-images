@@ -36,7 +36,7 @@ echo $GITHUB_REPOSITORY " is the github repo"
 
 docker login -u publisher -p ${GITHUB_TOKEN} docker.pkg.github.com
 
-set -e
+
 ls /github/workflow
 echo "break"
 ls /github/workspace
