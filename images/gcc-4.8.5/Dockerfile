@@ -38,7 +38,7 @@ ARG cherry_pick="3a27b4db566c2cde8e043220f3d2c5401159b10e"
 
 ADD scripts/checkout-gcc.sh /tmp/
 RUN /tmp/checkout-gcc.sh \
-  --destination /gcc-sources/
+  --destination /gcc-sources/ \
   --branch "$branch" \
   --cherry-pick "$cherry_pick"
 
@@ -46,7 +46,7 @@ RUN /tmp/checkout-gcc.sh \
 ARG install_prefix=/compiler
 ADD scripts/build-gcc.sh /tmp/
 RUN /tmp/build-gcc.sh \
-    --source /gcc-sources/
+    --source /gcc-sources/ \
     --install "$install_prefix"
 
 FROM marketplace.gcr.io/google/debian9 as compiler-image
