@@ -50,6 +50,7 @@ RUN apt-get update && \
 RUN cd /tmp/ && curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x ./get-docker.sh && ./get-docker.sh
 
 RUN adduser --home=/home/actions-runner --shell $(which fish) --ingroup root --disabled-password actions-runner
+RUN usermod -aG sudo actions-runner
 
 RUN mkdir /actions-runner/ && cd /actions-runner/ && \
   curl -O -L https://github.com/actions/runner/releases/download/v2.165.2/actions-runner-linux-x64-2.165.2.tar.gz && \
@@ -57,7 +58,7 @@ RUN mkdir /actions-runner/ && cd /actions-runner/ && \
 
 USER actions-runner
 RUN cd /actions-runner/ && \
-   sudo ./config.sh --unattended \
+  sudo ./config.sh --unattended \
    --url $GITHUB_REPO \
    --token $GITHUB_TOKEN \
    --name 'my-runner' \
@@ -65,9 +66,9 @@ RUN cd /actions-runner/ && \
    --replace
 
 RUN cd /actions-runner/ && \
-    sudo ./svc.sh install
+   sudo ./svc.sh install
 
 
-USER actions-runner
+
 ENTRYPOINT cd /actions-runner/ && ./run.sh
 
