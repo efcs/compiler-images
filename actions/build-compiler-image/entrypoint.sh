@@ -38,6 +38,6 @@ docker login -u publisher -p ${GITHUB_TOKEN} docker.pkg.github.com
 cd /context/
 chmod +x ./images/build-image.sh
 sh ./images/build-image.sh --docker-repository docker.pkg.github.com/${GITHUB_REPOSITORY}/${IMAGE_NAME} \
-  --docker-tag ${IMAGE_TAG}
+  --docker-tag ${IMAGE_TAG} \
   --image ${IMAGE_SOURCE}
 docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/${IMAGE_NAME}
