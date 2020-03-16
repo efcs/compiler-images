@@ -1,7 +1,7 @@
 FROM docker:stable
 
 
-ADD /github/workspace/  /
+ADD ../ .
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
