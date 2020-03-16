@@ -77,7 +77,7 @@ RUN ./config.sh --unattended \
    --replace
 
 
-RUN sudo service --status-all
+RUN sudo ./svc.sh install
 
-ENTRYPOINT  ./run.sh
+ENTRYPOINT sudo ./svc.sh start
 
