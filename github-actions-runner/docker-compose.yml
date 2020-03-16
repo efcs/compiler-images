@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  actions-runner:
+    build:
+      context: .
+      args:
+        GITHUB_REPO: https://github.com/efcs/compiler-images
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    image: actions-runner
