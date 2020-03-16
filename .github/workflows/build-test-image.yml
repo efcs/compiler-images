@@ -34,4 +34,4 @@ jobs:
           image-source: 'test-image'
           image-name: 'test-image'
           image-tag: 'latest'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
