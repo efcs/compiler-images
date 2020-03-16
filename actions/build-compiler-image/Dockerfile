@@ -1,6 +1,6 @@
 FROM docker:stable
 
-COPY / /context
+COPY . /context
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
