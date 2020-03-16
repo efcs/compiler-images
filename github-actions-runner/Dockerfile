@@ -47,7 +47,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 
-RUN cd /tmp/ && curl -fsSL https://get.docker.com -o get-docker.sh && ./get-docker.sh
+RUN cd /tmp/ && curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x ./get-docker.sh && ./get-docker.sh
 
 RUN adduser --home=/home/actions-runner --shell fish --ingroup root --disabled-password actions-runner
 
