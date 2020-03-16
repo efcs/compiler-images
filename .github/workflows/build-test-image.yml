@@ -29,7 +29,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build
-        uses: ./build-compiler-image@master
+        uses: ./.github/actions/build-compiler-image@master
         with:
           image-source: 'test-image'
           image-name: 'test-image'
