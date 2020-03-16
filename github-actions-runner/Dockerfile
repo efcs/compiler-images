@@ -51,6 +51,7 @@ RUN cd /tmp/ && curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x .
 
 RUN adduser --home=/home/actions-runner --shell $(which fish) --ingroup root --disabled-password actions-runner
 RUN usermod -aG sudo actions-runner
+RUN echo ALL=(ALL) NOPASSWD:ALL >> /etc/sudoers
 
 RUN mkdir /actions-runner/ && cd /actions-runner/ && \
   curl -O -L https://github.com/actions/runner/releases/download/v2.165.2/actions-runner-linux-x64-2.165.2.tar.gz && \
