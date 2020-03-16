@@ -3,10 +3,10 @@ on:
   push:
     branches:
       - master
-    paths: images/test-image/**
+    paths: images/gcc-4.8.5/**
 jobs:
   build:
-    runs-on: [ubuntu-latest]
+    runs-on: [self-hosted]
     steps:
     - name: Copy Repo Files
       uses: actions/checkout@master
@@ -14,9 +14,9 @@ jobs:
       uses: ericwf/gpr-docker-publish@master
       id: docker
       with:
-        IMAGE_NAME: 'test-image'
-        TAG: 'test'
-        DOCKERFILE_PATH: 'images/test-image/Dockerfile'
+        IMAGE_NAME: 'gcc-4.8.5'
+        TAG: 'final'
+        DOCKERFILE_PATH: 'images/gcc-4.8.5/Dockerfile'
         BUILD_CONTEXT: '.'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
