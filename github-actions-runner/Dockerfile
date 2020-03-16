@@ -42,6 +42,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y systemd systemd-sysv
+RUN sudo service --status-all
 RUN  sudo systemctl daemon-reload
 
 RUN cd /tmp/ && curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x ./get-docker.sh && ./get-docker.sh
