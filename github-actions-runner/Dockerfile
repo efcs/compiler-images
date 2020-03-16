@@ -61,21 +61,18 @@ WORKDIR /home/actions-runner/
 
 RUN pwd && mkdir  work/
 
-RUN cd ~ && \
-  curl -O -L https://github.com/actions/runner/releases/download/v2.165.2/actions-runner-linux-x64-2.165.2.tar.gz && \
+RUN curl -O -L https://github.com/actions/runner/releases/download/v2.165.2/actions-runner-linux-x64-2.165.2.tar.gz && \
   tar xzf ./actions-runner-linux-x64-2.165.2.tar.gz
-RUN cd /actions-runner/  && \
-   ./config.sh --unattended \
+RUN ./config.sh --unattended \
    --url $GITHUB_REPO \
    --token $GITHUB_TOKEN \
    --name 'my-runner' \
    --work /home/actions-runner/work \
    --replace
 
-RUN cd /actions-runner/ && \
-   sudo ./svc.sh install
+RUN sudo ./svc.sh install
 
 
 
-ENTRYPOINT cd /actions-runner/ && ./run.sh
+ENTRYPOINT  ./run.sh
 
