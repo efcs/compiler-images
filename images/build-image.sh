@@ -17,11 +17,11 @@ Available options:
   General:
     -h|--help               show this help message
   Docker-specific:
-    -s|--image             image source dir (i.e. debian8, nvidia-cuda, etc)
-    -d|--docker-repository  docker repository for the image
-    -t|--docker-tag         docker tag for the image
+    -s|--image-source      image source dir (i.e. debian8, nvidia-cuda, etc)
+    -d|--image-repository  docker repository for the image
+    -t|--image-tag         docker tag for the image
 
-Required options: --image and --docker-repository
+Required options: --image-source and --image-repository
 
 EOF
 }
@@ -32,26 +32,21 @@ while [[ $# -gt 0 ]]; do
       show_usage
       exit 0
       ;;
-    -i|--image)
+    -i|--image-source)
       shift
       IMAGE_SOURCE="$1"
       shift
       ;;
-    -d|--docker-repository)
+    -d|--image-repository)
       shift
       DOCKER_REPOSITORY="$1"
       shift
       ;;
-    -t|--docker-tag)
+    -t|--image-tag)
       shift
       DOCKER_TAG="$1"
       shift
       ;;
-    -p|--publish)
-      shift
-      PUBLISH=""
-      ;;
-
     *)
       echo "Unknown argument $1"
       exit 1

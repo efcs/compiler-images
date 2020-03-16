@@ -22,14 +22,11 @@ on:
 
 
 jobs:
-  setup-build-deploy:
-    name: Setup, Build, and Deploy
+  build-and-publish-image:
+    name: Build Compiler Image
     runs-on: [self-hosted]
     steps:
       - uses: actions/checkout@v2
-      - uses: ./actions/build-compiler-image
+      - uses: ./.github/actions/authenticate-container-registry
         with:
-          image-source: 'test-image'
-          image-name: 'test-image'
-          image-tag: 'latest'
           github-token: '${{ github.token }}'
