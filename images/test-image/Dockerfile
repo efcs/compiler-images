@@ -7,7 +7,7 @@
 #===-------------------------------------------------------------------------------------------===//
 
 # Build GCC versions
-FROM marketplace.gcr.io/google/debian9 AS test
+FROM debian AS test
 
 LABEL built_on=march-2020
 
