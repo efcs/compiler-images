@@ -1,0 +1,32 @@
+# action.yml
+name: 'build compiler image'
+description: 'build and publish a compiler image'
+inputs:
+  image-source:  # id of input
+    description: 'The compiler image you wish to build'
+    required: true
+  image-name:
+    description: 'The name to publish the container as'
+    required: true
+  image-tag:
+    description: 'The tag to give to the image'
+    required: false
+  github-token:
+    description: 'Publish the container'
+    required: true
+outputs:
+  image-name: # id of output
+    description: 'The name of the image that was built'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - '--image-source'
+    - ${{ inputs.image-source }}
+    - '--image-name'
+    - ${{ inputs.image-name }}
+    - '--image-tag'
+    - ${{ inputs.image-tag }}
+    - '--github-token'
+    - ${{ secrets.GITHUB_TOKEN }}
+

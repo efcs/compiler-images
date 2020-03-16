@@ -11,17 +11,17 @@ DOCKER_TAG=""
 
 function show_usage() {
   cat << EOF
-Usage: build_docker_image.sh [options] [-- [cmake_args]...]
+Usage: build-image.sh [options]
 
 Available options:
   General:
     -h|--help               show this help message
   Docker-specific:
-    -s|--source             image source dir (i.e. debian8, nvidia-cuda, etc)
+    -s|--image             image source dir (i.e. debian8, nvidia-cuda, etc)
     -d|--docker-repository  docker repository for the image
     -t|--docker-tag         docker tag for the image
 
-Required options: --source and --docker-repository
+Required options: --image and --docker-repository
 
 EOF
 }
@@ -32,7 +32,7 @@ while [[ $# -gt 0 ]]; do
       show_usage
       exit 0
       ;;
-    -s|--source)
+    -i|--image)
       shift
       IMAGE_SOURCE="$1"
       shift
@@ -47,6 +47,11 @@ while [[ $# -gt 0 ]]; do
       DOCKER_TAG="$1"
       shift
       ;;
+    -p|--publish)
+      shift
+      PUBLISH=""
+      ;;
+
     *)
       echo "Unknown argument $1"
       exit 1
@@ -94,5 +99,6 @@ echo "Building ${DOCKER_REPOSITORY}${DOCKER_TAG} from $IMAGE_SOURCE"
 docker build -t "${DOCKER_REPOSITORY}${DOCKER_TAG}" \
   -f "$BUILD_DIR/$IMAGE_SOURCE/Dockerfile" \
   "$BUILD_DIR"
+
 
 echo "Done"
