@@ -52,6 +52,7 @@ RUN usermod -aG sudo actions-runner
 
 RUN echo "" >> /etc/sudoers
 RUN echo "actions-runner ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN systemctl daemon-reload
 
 
 
