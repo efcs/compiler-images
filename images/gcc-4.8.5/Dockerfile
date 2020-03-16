@@ -31,15 +31,23 @@ RUN apt-get update && \
       && \
   rm -rf /var/lib/apt/lists/*
 
-FROM compiler-builder-image
+FROM compiler-builder-image AS builder
 
 ARG branch=releases/gcc-4.8.5
 ARG cherry_pick="3a27b4db566c2cde8e043220f3d2c5401159b10e"
-ARG install_prefix=/compiler
 
-ADD scripts/build_gcc_version.sh /tmp/
-RUN /tmp/build_gcc_version.sh \
-    --install "$install_prefix" \
-    --branch "$branch" \
-    --cherry-pick "$cherry_pick" \
-    && rm /tmp/build_gcc_version.sh
+ADD scripts/checkout-gcc.sh /tmp/
+RUN /tmp/checkout-gcc.sh \
+  --destination /gcc-sources/
+  --branch "$branch" \
+  --cherry-pick "$cherry_pick"
+
+
+ARG install_prefix=/compiler
+ADD scripts/build-gcc.sh /tmp/
+RUN /tmp/build-gcc.sh \
+    --source /gcc-sources/
+    --install "$install_prefix"
+
+FROM marketplace.gcr.io/google/debian9 as compiler-image
+COPY --from=builder /compiler/ /compiler/
