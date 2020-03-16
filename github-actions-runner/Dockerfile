@@ -4,7 +4,7 @@
 #===-------------------------------------------------------------------------------------------===//
 
 
-FROM marketplace.gcr.io/google/debian9 AS runner
+FROM ubuntu AS runner
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
