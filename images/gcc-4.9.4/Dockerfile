@@ -7,18 +7,28 @@
 #===-------------------------------------------------------------------------------------------===//
 
 # Build GCC versions
-FROM ericwf/compiler-builder-image:latest
-LABEL maintainer "libc++ Developers"
+FROM marketplace.gcr.io/google/debian9 AS builder
 
+ADD scripts/install-gcc-build-env.sh /tmp/
+RUN /tmp/install-gcc-build-env.sh
 
-ARG branch
+#===------------------------------------------------------------------------===#
+# Configuration
+#===------------------------------------------------------------------------===#
+ARG branch=releases/gcc-4.9.4
 ARG cherry_pick=""
-ARG install_prefix
-ARG cache_date=stable
 
-ADD scripts/build_gcc_version.sh /tmp/
-RUN /tmp/build_gcc_version.sh \
-    --install "$install_prefix" \
-    --branch "$branch" \
-    --cherry-pick "$cherry_pick" \
-    && rm /tmp/build_gcc_version.sh
+ADD scripts/checkout-gcc.sh /tmp/
+RUN /tmp/checkout-gcc.sh \
+  --destination /gcc-sources/ \
+  --branch "$branch" \
+  --cherry-pick "$cherry_pick"
+
+ADD scripts/build-gcc.sh /tmp/
+RUN /tmp/build-gcc.sh \
+    --source /gcc-sources/ \
+    --install "/compiler"
+
+FROM marketplace.gcr.io/google/debian9 AS compiler-image
+COPY --from=builder /compiler/ /compiler/
+RUN echo "testing..." && /compiler/bin/g++ --version
