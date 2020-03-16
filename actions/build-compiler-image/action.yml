@@ -14,9 +14,6 @@ inputs:
   github-token:
     description: 'Publish the container'
     required: true
-outputs:
-  image-name: # id of output
-    description: 'The name of the image that was built'
 runs:
   using: 'docker'
   image: 'Dockerfile'
