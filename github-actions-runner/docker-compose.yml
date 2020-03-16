@@ -6,5 +6,5 @@ services:
       context: .
       args:
         GITHUB_REPO: https://github.com/efcs/compiler-images
-        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        GITHUB_TOKEN: ${GITHUB_TOKEN:?required}
     image: actions-runner
