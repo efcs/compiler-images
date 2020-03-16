@@ -47,7 +47,7 @@ RUN apt-get update && \
 
 RUN cd /tmp/ && curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x ./get-docker.sh && ./get-docker.sh
 
-RUN adduser --home=/home/actions-runner --shell $(which fish) --ingroup root --disabled-password actions-runner
+RUN adduser --home=/home/actions-runner --shell $(which fish) --ingroup sudo --disabled-password actions-runner
 RUN usermod -aG sudo actions-runner
 RUN usermod -aG docker actions-runner
 
