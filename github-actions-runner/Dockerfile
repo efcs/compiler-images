@@ -49,7 +49,6 @@ RUN cd /tmp/ && curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x .
 
 RUN adduser --home=/home/actions-runner --shell $(which fish) --ingroup sudo --disabled-password actions-runner
 RUN usermod -aG sudo actions-runner
-RUN usermod -aG docker actions-runner
 
 RUN echo "" >> /etc/sudoers
 RUN echo "actions-runner ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
@@ -75,9 +74,7 @@ RUN ./config.sh --unattended \
    --replace
 
 RUN sudo systemctl enable docker
-RUN sudo systemctl enable dbus
-RUN sudo service docker start
-RUN sudo service dbus start
 
-ENTRYPOINT sudo service docker start && sudo service dbus start && ./run.sh
+
+ENTRYPOINT  ./run.sh
 
