@@ -38,8 +38,9 @@ docker login -u publisher -p ${GITHUB_TOKEN} docker.pkg.github.com
 
 set -x
 set -e
-pwd
-ls $GITHUB_WORKSPACE
+echo $(pwd)
+echo $(ls $GITHUB_WORKSPACE)
+echo $(ls)
 
 chmod +x ./images/build-image.sh
 sh ./images/build-image.sh --docker-repository docker.pkg.github.com/${GITHUB_REPOSITORY}/${IMAGE_NAME} \
