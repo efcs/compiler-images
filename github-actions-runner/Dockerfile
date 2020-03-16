@@ -63,6 +63,9 @@ RUN pwd && mkdir  work/
 
 RUN curl -O -L https://github.com/actions/runner/releases/download/v2.165.2/actions-runner-linux-x64-2.165.2.tar.gz && \
   tar xzf ./actions-runner-linux-x64-2.165.2.tar.gz
+
+ARG GITHUB_REPO
+ARG GITHUB_TOKEN
 RUN ./config.sh --unattended \
    --url $GITHUB_REPO \
    --token $GITHUB_TOKEN \
