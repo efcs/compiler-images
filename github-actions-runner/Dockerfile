@@ -1,0 +1,76 @@
+
+#===-------------------------------------------------------------------------------------------===//
+# buildslave
+#===-------------------------------------------------------------------------------------------===//
+
+
+FROM marketplace.gcr.io/google/debian9
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      ca-certificates \
+      gnupg \
+      build-essential \
+      wget \
+      subversion \
+      unzip \
+      automake \
+      python \
+      cmake \
+      ninja-build \
+      curl \
+      git \
+      gcc-multilib \
+      g++-multilib \
+      libc6-dev \
+      bison \
+      flex \
+      libtool \
+      autoconf \
+      binutils-dev \
+      binutils-gold \
+      software-properties-common \
+      gnupg \
+      apt-transport-https \
+      sudo \
+      bash-completion \
+      vim \
+      systemd \
+      sysvinit-utils \
+      systemd-sysv \
+      gnugp-agent \
+      fish \
+      fish-common \
+       && \
+  update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.gold" 20 && \
+  update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10 && \
+  rm -rf /var/lib/apt/lists/*
+
+
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+RUN sudo apt-key fingerprint 0EBFCD88
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  docker-ce docker-ce-cli containerd.io && \
+  rm -rf /var/lib/apt/lists/
+
+RUN adduser --home=/home/actions-runner --shell fish --ingroup root --disabled-password actions-runner
+
+RUN mkdir /actions-runner/ && cd /actions-runner/ && \
+  curl -O -L https://github.com/actions/runner/releases/download/v2.165.2/actions-runner-linux-x64-2.165.2.tar.gz && \
+  tar xzf ./actions-runner-linux-x64-2.165.2.tar.gz
+
+USER actions-runner
+RUN cd /actions-runner/ && \
+   ./config.sh --unattended \
+   --url $GITHUB_REPO \
+   --token $GITHUB_TOKEN \
+   --name 'my-runner' \
+   --work /home/actions-runner/
+   --replace
+
+RUN cd /actions-runner/ && \
+    sudo ./svc.sh install
+
+
+USER actions-runner
+
