@@ -40,9 +40,7 @@ set -x
 set -e
 pwd
 ls $GITHUB_WORKSPACE
-ls $HOME
-ls /
-ls /github/home
+
 chmod +x ./images/build-image.sh
 sh ./images/build-image.sh --docker-repository docker.pkg.github.com/${GITHUB_REPOSITORY}/${IMAGE_NAME} \
   --docker-tag ${IMAGE_TAG} \
