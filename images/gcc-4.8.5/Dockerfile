@@ -7,7 +7,9 @@
 #===-------------------------------------------------------------------------------------------===//
 
 # Build GCC versions
-FROM marketplace.gcr.io/google/debian9 AS builder
+FROM debian:stretch AS builder
+
+LABEL built.on=march-2020
 
 ADD scripts/install-gcc-build-env.sh /tmp/
 RUN /tmp/install-gcc-build-env.sh
@@ -29,5 +31,5 @@ RUN /tmp/build-gcc.sh \
     --source /gcc-sources/ \
     --install "/compiler"
 
-FROM marketplace.gcr.io/google/debian9 AS compiler-image
+FROM debian:stretch AS compiler-image
 COPY --from=builder /compiler/ /compiler/
