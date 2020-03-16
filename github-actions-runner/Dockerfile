@@ -35,15 +35,14 @@ RUN apt-get update && \
       sudo \
       bash-completion \
       vim \
-      systemd \
-      sysvinit-utils \
-      systemd-sysv \
       gnupg-agent \
       fish \
       fish-common \
        && \
   rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y systemd systemd-sysv
+RUN  sudo systemctl daemon-reload
 
 RUN cd /tmp/ && curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x ./get-docker.sh && ./get-docker.sh
 
@@ -52,7 +51,7 @@ RUN usermod -aG sudo actions-runner
 
 RUN echo "" >> /etc/sudoers
 RUN echo "actions-runner ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-RUN systemctl daemon-reload
+RUN sudo service --status-all
 
 
 
