@@ -51,6 +51,7 @@ RUN cd /tmp/ && curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x .
 
 RUN adduser --home=/home/actions-runner --shell $(which fish) --ingroup root --disabled-password actions-runner
 RUN usermod -aG sudo actions-runner
+RUN echo "" >> /etc/sudoers
 RUN echo "ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 RUN mkdir /actions-runner/ && cd /actions-runner/ && \
