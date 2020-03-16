@@ -36,15 +36,14 @@ echo $GITHUB_REPOSITORY " is the github repo"
 
 docker login -u publisher -p ${GITHUB_TOKEN} docker.pkg.github.com
 
-set -x
 set -e
 ls /github/workflow
 ls /github/workspace
 cd /github/workspace
 ls
 
-chmod +x ./images/build-image.sh
-sh ./images/build-image.sh --docker-repository docker.pkg.github.com/${GITHUB_REPOSITORY}/${IMAGE_NAME} \
+chmod +x /github/workspace/images/build-image.sh
+sh /github/workspace/images/build-image.sh --docker-repository docker.pkg.github.com/${GITHUB_REPOSITORY}/${IMAGE_NAME} \
   --docker-tag ${IMAGE_TAG} \
   --image ${IMAGE_SOURCE}
 docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/${IMAGE_NAME}
