@@ -65,7 +65,7 @@ RUN cd /actions-runner/ && \
    --url $GITHUB_REPO \
    --token $GITHUB_TOKEN \
    --name 'my-runner' \
-   --work /home/actions-runner/
+   --work /home/actions-runner/ \
    --replace
 
 RUN cd /actions-runner/ && \
@@ -73,4 +73,5 @@ RUN cd /actions-runner/ && \
 
 
 USER actions-runner
+ENTRYPOINT cd /actions-runner/ && ./run.sh
 
