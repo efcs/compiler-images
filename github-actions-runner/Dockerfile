@@ -4,10 +4,10 @@
 #===-------------------------------------------------------------------------------------------===//
 
 
-FROM debian AS runner
+FROM ubuntu AS runner
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+    apt-get install -y \
       ca-certificates \
       gnupg \
       build-essential \
@@ -42,8 +42,6 @@ RUN apt-get update && \
       fish \
       fish-common \
        && \
-  update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.gold" 20 && \
-  update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10 && \
   rm -rf /var/lib/apt/lists/*
 
 
@@ -75,11 +73,6 @@ RUN ./config.sh --unattended \
    --name 'my-runner' \
    --work /home/actions-runner/work \
    --replace
-
-
-RUN sudo ./svc.sh --help
-
-RUN sudo ./svc.sh install
 
 ENTRYPOINT ./run.sh
 
