@@ -77,5 +77,5 @@ RUN ./config.sh --unattended \
 RUN sudo service docker start
 RUN sudo service dbus start
 
-ENTRYPOINT ./run.sh
+ENTRYPOINT sudo service docker start && sudo service dbus start && ./run.sh
 
