@@ -74,5 +74,8 @@ RUN ./config.sh --unattended \
    --work /home/actions-runner/work \
    --replace
 
+RUN sudo service docker start
+RUN sudo service dbus start
+
 ENTRYPOINT ./run.sh
 
