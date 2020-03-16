@@ -1,32 +1,27 @@
-
-# Copyright 2019 Google, LLC.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-name: Build the test action
-
+name: Publish Docker image to GitHub Package Registry
 on:
   push:
     branches:
-    - master
-
+      - master
+    paths: images/test-image/**
 
 jobs:
-  build-and-publish-image:
-    name: Build Compiler Image
-    runs-on: [self-hosted]
+  build:
+    runs-on: [ubuntu-latest]
     steps:
-      - uses: actions/checkout@v2
-      - uses: efcs@actions/authenticate-container-registry
-        with:
-          github-token: '${{ github.token }}'
+
+    - name: Copy Repo Files
+      uses: actions/checkout@master
+
+     #This Action Emits 2 Variables, IMAGE_SHA_NAME and IMAGE_URL 
+     #which you can reference in subsequent steps
+    - name: Publish Docker Image to GPR
+      uses: ericwf/gpr-docker-publish@master
+      id: docker
+      with:
+        IMAGE_NAME: 'test-image'
+        TAG: 'test'
+        DOCKERFILE_PATH: 'images/test-image/Dockerfile'
+        BUILD_CONTEXT: '.'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

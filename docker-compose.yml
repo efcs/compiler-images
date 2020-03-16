@@ -9,11 +9,6 @@ x-build-gcc: &build-gcc
     dockerfile: compilers/gcc.Dockerfile
 
 services:
-  compiler-builder-image:
-    build:
-      context: ..
-      dockerfile: compilers/compiler-builder-image.Dockerfile
-    image: ericwf/compiler-builder-image:latest
   gcc-4.8.5:
     build:
       <<: *build-gcc
