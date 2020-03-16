@@ -57,15 +57,19 @@ RUN echo "actions-runner ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 
 USER actions-runner
-RUN mkdir /actions-runner/ && cd /actions-runner/ && \
+WORKDIR /home/actions-runner/
+
+RUN pwd && mkdir  work/
+
+RUN cd ~ && \
   curl -O -L https://github.com/actions/runner/releases/download/v2.165.2/actions-runner-linux-x64-2.165.2.tar.gz && \
   tar xzf ./actions-runner-linux-x64-2.165.2.tar.gz
-RUN cd /actions-runner/ && \
+RUN cd /actions-runner/  && \
    ./config.sh --unattended \
    --url $GITHUB_REPO \
    --token $GITHUB_TOKEN \
    --name 'my-runner' \
-   --work /home/actions-runner/ \
+   --work /home/actions-runner/work \
    --replace
 
 RUN cd /actions-runner/ && \
