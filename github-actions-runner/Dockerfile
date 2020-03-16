@@ -66,9 +66,11 @@ RUN curl -O -L https://github.com/actions/runner/releases/download/v2.165.2/acti
 
 ARG GITHUB_REPO
 ARG GITHUB_TOKEN
+ENV GITHUB_REPO
+ENV GITHUB_TOKEN
 RUN ./config.sh --unattended \
-   --url $GITHUB_REPO \
-   --token $GITHUB_TOKEN \
+   --url "$GITHUB_REPO" \
+   --token "$GITHUB_TOKEN" \
    --name 'my-runner' \
    --work /home/actions-runner/work \
    --replace
