@@ -41,6 +41,7 @@ RUN apt-get update && \
        && \
   rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y apt-utils
 RUN apt-get update && apt-get install -y systemd systemd-sysv
 RUN sudo service --status-all
 
