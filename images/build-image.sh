@@ -97,6 +97,7 @@ fi
 
 echo "Building ${DOCKER_REPOSITORY}${DOCKER_TAG} from $IMAGE_SOURCE"
 docker build \
+  -v /var/run/docker.sock:/var/run/docker.sock --privileged \
    -t "${DOCKER_REPOSITORY}${DOCKER_TAG}" \
   -f "$BUILD_DIR/$IMAGE_SOURCE/Dockerfile" \
   "$BUILD_DIR"
