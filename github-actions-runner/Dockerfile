@@ -48,7 +48,7 @@ RUN sudo service --status-all
 
 RUN cd /tmp/ && curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x ./get-docker.sh && ./get-docker.sh
 
-RUN adduser --home=/home/actions-runner --shell $(which fish) --ingroup sudo --disabled-password actions-runner
+RUN adduser --home=/home/actions-runner --shell /bin/bash --ingroup sudo --disabled-password actions-runner
 RUN usermod -aG sudo actions-runner
 RUN usermod -aG docker actions-runner
 RUN service docker start
@@ -78,8 +78,8 @@ RUN ./config.sh --unattended \
    --work /home/actions-runner/work \
    --replace
 
-RUN sudo systemctl enable docker
 
 
-ENTRYPOINT service docker start && ./run.sh
+
+ENTRYPOINT ./run.sh
 
