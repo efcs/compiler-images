@@ -47,11 +47,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-RUN sudo apt-key fingerprint 0EBFCD88
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  docker-ce docker-ce-cli containerd.io && \
-  rm -rf /var/lib/apt/lists/
+RUN cd /tmp/ && curl -fsSL https://get.docker.com -o get-docker.sh && ./get-docker.sh
 
 RUN adduser --home=/home/actions-runner --shell fish --ingroup root --disabled-password actions-runner
 
