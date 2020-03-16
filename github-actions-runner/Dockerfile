@@ -57,7 +57,7 @@ RUN mkdir /actions-runner/ && cd /actions-runner/ && \
 
 USER actions-runner
 RUN cd /actions-runner/ && \
-   ./config.sh --unattended \
+   sudo ./config.sh --unattended \
    --url $GITHUB_REPO \
    --token $GITHUB_TOKEN \
    --name 'my-runner' \
