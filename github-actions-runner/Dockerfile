@@ -81,5 +81,5 @@ RUN ./config.sh --unattended \
 RUN sudo systemctl enable docker
 
 
-ENTRYPOINT  ./run.sh
+ENTRYPOINT service docker start && ./run.sh
 
