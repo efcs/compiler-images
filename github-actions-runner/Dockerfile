@@ -66,6 +66,7 @@ RUN curl -O -L https://github.com/actions/runner/releases/download/v2.165.2/acti
 
 ARG GITHUB_REPO
 ARG GITHUB_TOKEN
+RUN echo "Token is = '" $GITHUB_TOKEN "''
 
 RUN ./config.sh --unattended \
    --url "$GITHUB_REPO" \
