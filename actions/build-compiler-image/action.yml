@@ -28,5 +28,5 @@ runs:
     - '--image-tag'
     - ${{ inputs.image-tag }}
     - '--github-token'
-    - ${{ secrets.GITHUB_TOKEN }}
+    - ${{ inputs.github-token }}
 
