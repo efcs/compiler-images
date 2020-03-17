@@ -25,7 +25,9 @@ apt-get install -y --no-install-recommends \
       software-properties-common \
       cmake \
       ninja-build \
-      python
+      python \
+      apt-transport-https
+
 
 rm -rf /var/lib/apt/lists/*
 

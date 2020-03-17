@@ -15,7 +15,7 @@ RUN /tmp/install-clang-build-env.sh && rm /tmp/install-clang-build-env.sh
 
 ARG VERSION=11
 ADD scripts/install-clang-packages.sh /tmp/
-RUN /tmp/install-clang-packages.sh --version=${VERSION} && rm /tmp/install-clang-packages.sh
+RUN /tmp/install-clang-packages.sh --version ${VERSION} && rm /tmp/install-clang-packages.sh
 
 ARG branch
 ARG CC=clang
