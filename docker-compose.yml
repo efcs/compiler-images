@@ -14,171 +14,126 @@ services:
       <<: *build-gcc
       args:
         branch: releases/gcc-4.8.5
-        install_prefix: /compiler
         cherry_pick: 3a27b4db566c2cde8e043220f3d2c5401159b10e
-    image: ericwf/compilers-gcc-4.8.5:final
+    image: efcs/compiler-images/gcc-4.8.5:final
   gcc-4.9.4:
     build:
       <<: *build-gcc
       args:
         branch: releases/gcc-4.9.4
-        install_prefix: /compiler
-    image: ericwf/compilers-gcc-4.9.4:final
+    image: efcs/compiler-images/gcc-4.9.4:final
   gcc-5:
     build:
       <<: *build-gcc
       args:
         branch: releases/gcc-5.5.0
-        install_prefix: /compiler
-    image: ericwf/compilers-gcc-5:final
+    image: efcs/compiler-images/gcc-5:final
   gcc-6:
     build:
       <<: *build-gcc
       args:
         branch: releases/gcc-6.5.0
-        install_prefix: /compiler
-    image: ericwf/compilers-gcc-6:final
+    image: efcs/compiler-images/gcc-6:final
   gcc-7:
     build:
       <<: *build-gcc
       args:
         branch: releases/gcc-7.4.0
-        install_prefix: /compiler
-    image: ericwf/compilers-gcc-7:final
+    image: efcs/compiler-images/gcc-7:final
   gcc-8:
     build:
       <<: *build-gcc
       args:
         branch: releases/gcc-8.2.0
-        install_prefix: /compiler
-    image: ericwf/compilers-gcc-8:final
+    image: efcs/compiler-images/gcc-8:final
   gcc-9:
     build:
       <<: *build-gcc
       args:
         branch: releases/gcc-9.2.0
-        install_prefix: /compiler
-    image: ericwf/compilers-gcc-9:final
+    image: efcs/compiler-images/gcc-9:final
   # Add LLVM compilers
   llvm-3.6:
     build:
       <<: *build-clang
       args:
         branch: release/3.6.x
-        install_prefix: /compiler
         CC: gcc
         CXX: g++
-    image: ericwf/compilers-llvm-3.6:final
+    image: efcs/compiler-images/llvm-3.6:final
   llvm-3.7:
     build:
       <<: *build-clang
       args:
         branch: release/3.7.x
-        install_prefix: /compiler
         CC: gcc
         CXX: g++
-    image: ericwf/compilers-llvm-3.7:final
+    image: efcs/compiler-images/llvm-3.7:final
   llvm-3.8:
     build:
       <<: *build-clang
       args:
         branch: release/3.8.x
-        install_prefix: /compiler
         CC: gcc
         CXX: g++
-    image: ericwf/compilers-llvm-3.8:final
+    image: efcs/compiler-images/llvm-3.8:final
   llvm-3.9:
     build:
       <<: *build-clang
       args:
         branch: release/3.9.x
-        install_prefix: /compiler
         CC: gcc
         CXX: g++
-    image: ericwf/compilers-llvm-3.9:final
+    image: efcs/compiler-images/llvm-3.9:final
   llvm-4:
     build:
       <<: *build-clang
       args:
         branch: release/4.x
-        install_prefix: /compiler
         CC: gcc
         CXX: g++
-    image: ericwf/compilers-llvm-4:final
+    image: efcs/compiler-images/llvm-4:final
   llvm-5:
     build:
       <<: *build-clang
       args:
         branch: release/5.x
-        install_prefix: /compiler
-    image: ericwf/compilers-llvm-5:final
+    image: efcs/compiler-images/llvm-5:final
   llvm-6:
     build:
       <<: *build-clang
       args:
         branch: release/6.x
-        install_prefix: /compiler
-    image: ericwf/compilers-llvm-6:final
+    image: efcs/compiler-images/llvm-6:final
   llvm-7:
     build:
       <<: *build-clang
       args:
         branch: release/7.x
-        install_prefix: /compiler
-    image: ericwf/compilers-llvm-7:final
+    image: efcs/compiler-images/llvm-7:final
   llvm-8:
     build:
       <<: *build-clang
       args:
         branch: release/8.x
-        install_prefix: /compiler
-    image: ericwf/compilers-llvm-8:final
+    image: efcs/compiler-images/llvm-8:final
   llvm-9:
     build:
       <<: *build-clang
       args:
         branch: release/9.x
-        install_prefix: /compiler
-    image: ericwf/compilers-llvm-9:final
+    image: efcs/compiler-images/llvm-9:final
   gcc-tot:
     build:
       <<: *build-gcc
       args:
         branch: master
         cache_date: ${TODAYS_DATE:?export TODAYS_DATE=$(date +'%F')}
-        install_prefix: /compiler
-    image: ericwf/compilers-gcc-tot:${TODAYS_DATE:?export TODAYS_DATE=$(date +'%F')}
+    image: efcs/compiler-images/gcc-tot:undated
   llvm-tot:
     build:
       <<: *build-clang
       args:
         branch: master
         cache_date: ${TODAYS_DATE:?export TODAYS_DATE=$(date +'%F')}
-        install_prefix: /compiler
-    image: ericwf/compilers-llvm-tot:${TODAYS_DATE:?export TODAYS_DATE=$(date +'%F')}
-  compiler-zoo:
-    build:
-      context: ..
-      dockerfile: compilers/compiler-zoo.Dockerfile
-      target: compiler-zoo
-    image: ericwf/compiler-zoo:latest
-    depends_on:
-    - gcc-4.8.5
-    - gcc-4.9.4
-    - gcc-5
-    - gcc-6
-    - gcc-7
-    - gcc-8
-    - gcc-9
-    - gcc-tot
-    - llvm-3.6
-    - llvm-3.7
-    - llvm-3.8
-    - llvm-3.9
-    - llvm-4
-    - llvm-5
-    - llvm-6
-    - llvm-7
-    - llvm-8
-    - llvm-9
-    - llvm-tot
+    image: efcs/compiler-images/llvm-tot:undated
