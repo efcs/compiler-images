@@ -2,11 +2,11 @@ version: '3.7'
 
 x-build-clang: &build-clang
     context: images/clang/
-    dockerfile: images/clang/Dockerfile
+    dockerfile: Dockerfile
 
 x-build-gcc: &build-gcc
     context: images/gcc/
-    dockerfile: images/gcc/Dockerfile
+    dockerfile: Dockerfile
 
 services:
   gcc-4.8.5:
