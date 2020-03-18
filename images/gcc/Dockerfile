@@ -9,7 +9,7 @@
 # Build GCC versions
 FROM debian:stretch AS builder
 
-ADD scripts/install-gcc-build-env.sh /tmp/
+ADD  install-gcc-build-env.sh /tmp/
 RUN /tmp/install-gcc-build-env.sh
 
 #===------------------------------------------------------------------------===#
@@ -18,13 +18,13 @@ RUN /tmp/install-gcc-build-env.sh
 ARG branch
 ARG cherry_pick
 
-ADD scripts/checkout-gcc.sh /tmp/
+ADD checkout-gcc.sh /tmp/
 RUN /tmp/checkout-gcc.sh \
   --destination /gcc-sources/ \
   --branch "$branch" \
   --cherry-pick "$cherry_pick"
 
-ADD scripts/build-gcc.sh /tmp/
+ADD build-gcc.sh /tmp/
 RUN /tmp/build-gcc.sh \
     --source /gcc-sources/ \
     --install "/compiler"

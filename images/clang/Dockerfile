@@ -8,13 +8,13 @@
 
 # Build GCC versions
 FROM debian:stretch AS builder
-LABEL maintainer "libc++ Developers"
+LABEL maintainer "Eric Fiselier"
 
-ADD scripts/install-clang-build-env.sh /tmp/
+ADD install-clang-build-env.sh /tmp/
 RUN /tmp/install-clang-build-env.sh && rm /tmp/install-clang-build-env.sh
 
 ARG VERSION=11
-ADD scripts/install-clang-packages.sh /tmp/
+ADD install-clang-packages.sh /tmp/
 RUN /tmp/install-clang-packages.sh --version ${VERSION} && rm /tmp/install-clang-packages.sh
 
 ARG branch
@@ -24,7 +24,7 @@ ARG CXX=clang++
 ENV CC $CC
 ENV CXX $CXX
 
-ADD scripts/build-llvm-version.sh /tmp/
+ADD build-llvm-version.sh /tmp/
 RUN /tmp/build-llvm-version.sh --install "/compiler" --branch "$branch" \
   && rm /tmp/build-llvm-version.sh
 
