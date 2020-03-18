@@ -10,6 +10,8 @@
 FROM debian:stretch AS builder
 LABEL maintainer "Eric Fiselier"
 
+ARG cache_date=none
+
 ADD install-clang-build-env.sh /tmp/
 RUN /tmp/install-clang-build-env.sh && rm /tmp/install-clang-build-env.sh
 
@@ -18,6 +20,7 @@ ADD install-clang-packages.sh /tmp/
 RUN /tmp/install-clang-packages.sh --version ${VERSION} && rm /tmp/install-clang-packages.sh
 
 ARG branch
+
 ARG CC=clang
 ARG CXX=clang++
 

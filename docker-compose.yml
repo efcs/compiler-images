@@ -128,13 +128,13 @@ services:
       <<: *build-gcc
       args:
         branch: master
-        cache_date: '2020-03-15'
-    image: docker.pkg.github.com/efcs/compiler-images/gcc:trunk-2020-03-15
+        cache_date: '2020-03-18'
+    image: docker.pkg.github.com/efcs/compiler-images/gcc:trunk-2020-03-18
   llvm-tot:
     build:
       <<: *build-clang
       args:
         branch: master
-        cache_date: '2020-03-15'
-    image: docker.pkg.github.com/efcs/compiler-images/llvm:trunk-2020-03-15
+        cache_date: '2020-03-18'
+    image: docker.pkg.github.com/efcs/compiler-images/llvm:trunk-2020-03-18
 
