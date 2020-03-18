@@ -4,7 +4,7 @@
 #===-------------------------------------------------------------------------------------------===//
 
 
-FROM debian AS runner
+FROM debian:stretch AS runner
 
 RUN apt-get update && \
     apt-get install -y \
