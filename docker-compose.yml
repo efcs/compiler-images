@@ -15,43 +15,43 @@ services:
       args:
         branch: releases/gcc-4.8.5
         cherry_pick: 3a27b4db566c2cde8e043220f3d2c5401159b10e
-    image: efcs/compiler-images/gcc:4.8.5
+    image: docker.pkg.github.com/efcs/compiler-images/gcc:4.8.5
   gcc-4.9.4:
     build:
       <<: *build-gcc
       args:
         branch: releases/gcc-4.9.4
-    image: efcs/compiler-images/gcc:4.9.4
+    image: docker.pkg.github.com/efcs/compiler-images/gcc:4.9.4
   gcc-5:
     build:
       <<: *build-gcc
       args:
         branch: releases/gcc-5.5.0
-    image: efcs/compiler-images/gcc:5.5.0
+    image: docker.pkg.github.com/efcs/compiler-images/gcc:5.5.0
   gcc-6:
     build:
       <<: *build-gcc
       args:
         branch: releases/gcc-6.5.0
-    image: efcs/compiler-images/gcc:6.5.0
+    image: docker.pkg.github.com/efcs/compiler-images/gcc:6.5.0
   gcc-7:
     build:
       <<: *build-gcc
       args:
         branch: releases/gcc-7.4.0
-    image: efcs/compiler-images/gcc:7.4.0
+    image: docker.pkg.github.com/efcs/compiler-images/gcc:7.4.0
   gcc-8:
     build:
       <<: *build-gcc
       args:
         branch: releases/gcc-8.2.0
-    image: efcs/compiler-images/gcc:8.2.0
+    image: docker.pkg.github.com/efcs/compiler-images/gcc:8.2.0
   gcc-9:
     build:
       <<: *build-gcc
       args:
         branch: releases/gcc-9.2.0
-    image: efcs/compiler-images/gcc:9.2.0
+    image: docker.pkg.github.com/efcs/compiler-images/gcc:9.2.0
   # Add LLVM compilers
   llvm-3.6:
     build:
@@ -60,7 +60,7 @@ services:
         branch: release/3.6.x
         CC: gcc
         CXX: g++
-    image: efcs/compiler-images/llvm:3.6.x
+    image: docker.pkg.github.com/efcs/compiler-images/llvm:3.6.x
   llvm-3.7:
     build:
       <<: *build-clang
@@ -68,7 +68,7 @@ services:
         branch: release/3.7.x
         CC: gcc
         CXX: g++
-    image: efcs/compiler-images/llvm:3.7.x
+    image: docker.pkg.github.com/efcs/compiler-images/llvm:3.7.x
   llvm-3.8:
     build:
       <<: *build-clang
@@ -76,7 +76,7 @@ services:
         branch: release/3.8.x
         CC: gcc
         CXX: g++
-    image: efcs/compiler-images/llvm:3.8.x
+    image: docker.pkg.github.com/efcs/compiler-images/llvm:3.8.x
   llvm-3.9:
     build:
       <<: *build-clang
@@ -84,7 +84,7 @@ services:
         branch: release/3.9.x
         CC: gcc
         CXX: g++
-    image: efcs/compiler-images/llvm:3.9.x
+    image: docker.pkg.github.com/efcs/compiler-images/llvm:3.9.x
   llvm-4:
     build:
       <<: *build-clang
@@ -92,48 +92,48 @@ services:
         branch: release/4.x
         CC: gcc
         CXX: g++
-    image: efcs/compiler-images/llvm:4.x
+    image: docker.pkg.github.com/efcs/compiler-images/llvm:4.x
   llvm-5:
     build:
       <<: *build-clang
       args:
         branch: release/5.x
-    image: efcs/compiler-images/llvm:5.x
+    image: docker.pkg.github.com/efcs/compiler-images/llvm:5.x
   llvm-6:
     build:
       <<: *build-clang
       args:
         branch: release/6.x
-    image: efcs/compiler-images/llvm:6.x
+    image: docker.pkg.github.com/efcs/compiler-images/llvm:6.x
   llvm-7:
     build:
       <<: *build-clang
       args:
         branch: release/7.x
-    image: efcs/compiler-images/llvm:7.x
+    image: docker.pkg.github.com/efcs/compiler-images/llvm:7.x
   llvm-8:
     build:
       <<: *build-clang
       args:
         branch: release/8.x
-    image: efcs/compiler-images/llvm:8.x
+    image: docker.pkg.github.com/efcs/compiler-images/llvm:8.x
   llvm-9:
     build:
       <<: *build-clang
       args:
         branch: release/9.x
-    image: efcs/compiler-images/llvm:9.x
+    image: docker.pkg.github.com/efcs/compiler-images/llvm:9.x
   gcc-tot:
     build:
       <<: *build-gcc
       args:
         branch: master
         cache_date: '2020-03-15'
-    image: efcs/compiler-images/gcc:2020-03-15
+    image: docker.pkg.github.com/efcs/compiler-images/gcc:2020-03-15
   llvm-tot:
     build:
       <<: *build-clang
       args:
         branch: master
         cache_date: '2020-03-15'
-    image: efcs/compiler-images/llvm-tot:2020-03-15
+    image: docker.pkg.github.com/efcs/compiler-images/llvm-tot:2020-03-15
