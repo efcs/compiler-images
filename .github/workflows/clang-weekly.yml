@@ -1,4 +1,4 @@
-name: Publish Docker image to GitHub Package Registry
+name: Build an LLVM weekly branch
 on:
   push:
     branches:
@@ -19,6 +19,8 @@ jobs:
       id: llvm-head
       run: |
         echo "llvm-head = $LLVM_REVISION"
+      env:
+        LLVM_REVISION: ${{ env.LLVM_REVISION }}
     - name: build-push
       uses: docker/build-push-action@v1
       with:
