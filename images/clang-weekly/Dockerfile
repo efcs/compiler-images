@@ -17,7 +17,7 @@ RUN /tmp/install-clang-build-env.sh && rm /tmp/install-clang-build-env.sh
 #ADD install-clang-packages.sh /tmp/
 #RUN /tmp/install-clang-packages.sh --version ${VERSION} && rm /tmp/install-clang-packages.sh
 
-RUN apt-get update && apt-get install clang++ -y
+RUN apt-get update && apt-get install clang -y
 
 ADD ./llvm-project /llvm-project
 RUN mkdir /build
