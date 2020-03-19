@@ -1,4 +1,4 @@
-name: Build an LLVM weekly branch
+name: New Build an LLVM weekly branch
 on:
   push:
     branches:
