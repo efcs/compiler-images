@@ -15,13 +15,12 @@ jobs:
       with:
         repository: 'llvm/llvm-project'
         path: images/clang-weekly/llvm-project
+        clean: 'false'
     - name: get-llvm-head
       run: |
         ls
         pwd
-        ls images/
-        ls images/clang-weekly/
-        ls images/clang-weekly/llvm-project
+        ls -lart images/clang-weekly/llvm-project
         export LLVM_REVISION=$(git -C images/clang-weekly/llvm-project/ rev-parse --short HEAD)
         echo "::set-env LLVM_REVISION=$LLVM_REVISION"
     - name: show-llvm-head
