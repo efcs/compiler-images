@@ -15,7 +15,7 @@ jobs:
     - name: Checkout LLVM
       uses: actions/checkout@v2
       with:
-        repository: 'https://github.com/llvm/llvm-project.git'
+        repository: 'llvm/llvm-project'
         path: images/clang-weekly/llvm-project
     - name: get-llvm-head
       run: |
