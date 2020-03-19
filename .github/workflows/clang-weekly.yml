@@ -11,16 +11,8 @@ jobs:
     - name: Checkout project
       uses: actions/checkout@v2
     - name: Checkout LLVM
-      uses: actions/checkout@v2
-      with:
-        repository: 'llvm/llvm-project'
-        path: images/clang-weekly/llvm-project
-        clean: 'false'
-    - name: get-llvm-head
       run: |
-        ls
-        pwd
-        ls -lart images/clang-weekly/llvm-project
+        git clone --depth=1 https://github.com/llvm/llvm-project.git images/clang-weekly/llvm-project
         export LLVM_REVISION=$(git -C images/clang-weekly/llvm-project/ rev-parse --short HEAD)
         echo "::set-env LLVM_REVISION=$LLVM_REVISION"
     - name: show-llvm-head
