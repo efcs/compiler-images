@@ -19,7 +19,8 @@ jobs:
       run: |
         ls
         pwd
-        ls images
+        ls images/
+        ls images/clang-weekly/
         export LLVM_REVISION=$(git -C images/clang-weekly/llvm-project/ rev-parse --short HEAD)
         echo "::set-env LLVM_REVISION=$LLVM_REVISION"
     - name: show-llvm-head
