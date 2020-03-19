@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - master
-env:
-  LLVM_REVISION: 'NOT SET'
 
 jobs:
   build:
@@ -19,7 +17,8 @@ jobs:
         path: images/clang-weekly/llvm-project
     - name: get-llvm-head
       run: |
-        echo "::set-env LLVM_REVISION=$(git -C images/clang-weekly/llvm-project/ rev-parse --short)"
+        export LLVM_REVISION=$(git -C images/clang-weekly/llvm-project/ rev-parse --short)
+        echo "::set-env LLVM_REVISION=$LLVM_REVISION"
     - name: show-llvm-head
       id: llvm-head
       run: |
