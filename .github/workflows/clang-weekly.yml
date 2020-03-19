@@ -1,0 +1,38 @@
+name: Publish Docker image to GitHub Package Registry
+on:
+  push:
+    branches:
+      - master
+env:
+  LLVM_REVISION: 'NOT SET'
+
+jobs:
+  build:
+    runs-on: [ubuntu-latest]
+    steps:
+
+    - name: Checkout project
+      uses: actions@checkout@v2
+    - name: Checkout LLVM
+      uses: actions/checkout@v2
+      with:
+        repository: 'https://github.com/llvm/llvm-project.git'
+        path: images/clang-weekly/llvm-project
+    - name: get-llvm-head
+      run: |
+        echo "::set-env LLVM_REVISION=$(git -C images/clang-weekly/llvm-project/ rev-parse --short)"
+    - name: show-llvm-head
+      id: llvm-head
+      run: |
+        echo "llvm-head = $LLVM_REVISION"
+    - name: build-push
+      uses: docker/build-push-action@v1
+      with:
+        registry: docker.pkg.github.com
+        username: publisher
+        password: ${{ secrets.GITHUB_TOKEN }}
+        repository: efcs/compiler-images/clang-weekly
+        tags: ${{ env.LLVM_REVISION }}
+        path: images/clang-weekly/
+
+
