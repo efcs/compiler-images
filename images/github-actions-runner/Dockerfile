@@ -48,20 +48,22 @@ RUN sudo service --status-all
 
 RUN cd /tmp/ && curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x ./get-docker.sh && ./get-docker.sh
 
-RUN adduser --home=/home/actions-runner --shell /bin/bash --ingroup sudo --disabled-password actions-runner
-RUN usermod -aG sudo actions-runner
-RUN usermod -aG docker actions-runner
+RUN adduser --home=/home/github --shell /bin/bash --ingroup sudo --disabled-password github
+RUN usermod -aG sudo github
+RUN usermod -aG docker github
 RUN service docker start
 RUN ls -lart /var/run
 
 RUN echo "" >> /etc/sudoers
-RUN echo "actions-runner ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN echo "github ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN sudo service --status-all
 
 
 
-USER actions-runner
-WORKDIR /home/actions-runner/
+USER github
+WORKDIR /home/github/
+
+RUN ls -lart
 
 RUN pwd && mkdir  work/
 
@@ -69,13 +71,12 @@ RUN curl -O -L https://github.com/actions/runner/releases/download/v2.165.2/acti
   tar xzf ./actions-runner-linux-x64-2.165.2.tar.gz
 
 ARG GITHUB_REPO
-ARG GITHUB_TOKEN
+ARG GITHUB_REGISTRATION_TOKEN
 
 RUN ./config.sh --unattended \
    --url "$GITHUB_REPO" \
-   --token "$GITHUB_TOKEN" \
-   --name 'my-runner' \
-   --work /home/actions-runner/work \
+   --token "$GITHUB_REGISTRATION_TOKEN" \
+   --name 'test-runner' \
    --replace
 
 
