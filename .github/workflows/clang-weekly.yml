@@ -35,6 +35,6 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         repository: efcs/compiler-images/clang-weekly
         tags: ${{ env.LLVM_REVISION }}
-        path: images/clang-weekly/
+        path: images/clang-weekly
 
 
