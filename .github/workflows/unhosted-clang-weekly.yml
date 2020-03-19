@@ -1,7 +1,7 @@
 name: Unhosted Build an LLVM weekly branch
 on:
   schedule:
-  - chron: '0 9 */1 * *'
+    chron: '0 9 */1 * *'
 
 jobs:
   build:
