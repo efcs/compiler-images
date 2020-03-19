@@ -14,7 +14,7 @@ jobs:
       run: |
         git clone --depth=1 https://github.com/llvm/llvm-project.git images/clang-weekly/llvm-project
         export LLVM_REVISION=$(git -C images/clang-weekly/llvm-project/ rev-parse --short HEAD)
-        echo "::set-env LLVM_REVISION=$LLVM_REVISION"
+        echo "::set-env name=LLVM_REVISION::$LLVM_REVISION"
     - name: show-llvm-head
       id: llvm-head
       run: |
