@@ -1,0 +1,37 @@
+name: New Build an LLVM weekly branch
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: [ubuntu-latest]
+    steps:
+    - name: Checkout project
+      uses: actions/checkout@v2
+    - name: Checkout LLVM
+      run: |
+        git clone --depth=1 https://github.com/llvm/llvm-project.git images/clang-weekly/llvm-project
+        export LLVM_REVISION=$(git -C images/clang-weekly/llvm-project/ rev-parse --short HEAD)
+        echo "::set-env LLVM_REVISION=$LLVM_REVISION"
+    - name: show-llvm-head
+      id: llvm-head
+      run: |
+        ls
+        pwd
+        ls images/clang-weekly
+        echo "llvm-head = $LLVM_REVISION"
+      env:
+        LLVM_REVISION: ${{ env.LLVM_REVISION }}
+    - name: build-push
+      uses: docker/build-push-action@v1
+      with:
+        registry: docker.pkg.github.com
+        username: publisher
+        password: ${{ secrets.GITHUB_TOKEN }}
+        repository: efcs/compiler-images/clang-weekly
+        tags: ${{ env.LLVM_REVISION }}
+        path: images/clang-weekly
+
+

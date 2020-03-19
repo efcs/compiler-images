@@ -22,11 +22,10 @@ RUN mkdir /build
 ADD ./ClangWeeklyConfigCache.cmake /build/
 
 
-RUN cmake \
-   -S /llvm-project \
-   -B /build \
-   -GNinja \
-   -C /build/ClangWeeklyConfigCache.cmake
+RUN cd /build && \
+    cmake -GNinja \
+   -C ClangWeeklyConfigCache.cmake \
+    /llvm-project/llvm/
 
 RUN cmake --build /build
 RUN cmake --build /build --target install
