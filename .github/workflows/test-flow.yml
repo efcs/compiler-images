@@ -27,4 +27,4 @@ jobs:
       uses: docker/push-action@v1
       with:
         registry: docker.pkg.github.com
-        tags: ${{ build.outputs.build.tags }}
+        tags: ${{ steps.build.outputs.build.tags }}
