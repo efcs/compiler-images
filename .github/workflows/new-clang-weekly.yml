@@ -22,8 +22,6 @@ jobs:
         pwd
         ls images/clang-weekly
         echo "llvm-head = $LLVM_REVISION"
-      env:
-        LLVM_REVISION: ${{ env.LLVM_REVISION }}
     - name: build-push
       uses: docker/build-push-action@v1
       with:

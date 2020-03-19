@@ -11,6 +11,7 @@ jobs:
     - name: Checkout project
       uses: actions/checkout@v2
     - name: Checkout LLVM
+      id: checkout
       run: |
         git clone --depth=1 https://github.com/llvm/llvm-project.git images/clang-weekly/llvm-project
         export LLVM_REVISION=$(git -C images/clang-weekly/llvm-project/ rev-parse --short HEAD)
@@ -22,8 +23,6 @@ jobs:
         pwd
         ls images/clang-weekly
         echo "llvm-head = $LLVM_REVISION"
-      env:
-        LLVM_REVISION: ${{ env.LLVM_REVISION }}
     - name: build-push
       uses: docker/build-push-action@v1
       with:
