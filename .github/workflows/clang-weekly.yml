@@ -18,6 +18,9 @@ jobs:
     - name: show-llvm-head
       id: llvm-head
       run: |
+        ls
+        pwd
+        ls images/clang-weekly
         echo "llvm-head = $LLVM_REVISION"
       env:
         LLVM_REVISION: ${{ env.LLVM_REVISION }}
