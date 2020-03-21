@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  llvm-buildbot-worker:
+    build:
+      context: https://github.com/efcs/llvm-project.git#docker-update-new:libcxx/utils/docker/debian9/buildbot
+      target: worker-image
+      args:
+        gcc_tot: "ericwf/gcc:9.2.0"
+        llvm_tot: "ericwf/llvm:9.x"
+    image: llvm-buildbot-worker
+    secrets:
+    - buildbot-auth
+
+secrets:
+  buildbot-auth:
+    file: buildbot-auth.json
