@@ -39,6 +39,8 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+apt-get update
+apt-get upgrade -y
 wget https://apt.llvm.org/llvm.sh -O /tmp/llvm.sh
 chmod +x /tmp/llvm.sh
 /tmp/llvm.sh $VERSION
