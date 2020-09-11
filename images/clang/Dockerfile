@@ -38,6 +38,15 @@ RUN echo "Installing packages...." \
            lsb-release \
   && rm -rf /var/lib/apt/lists/*
 
+RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" 10
+RUN clang++ --version
+
+ARG CMAKE_VERSION=3.18.2
+RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-Linux-x86_64.sh -O /tmp/install.sh \
+  && sh  /tmp/install.sh --prefix=/usr/local --exclude-subdir \
+  && rm /tmp/install.sh
+
+
 RUN echo "Checking out full LLVM..." \
     && git clone  https://github.com/llvm/llvm-project.git /llvm-sources \
     && git -C /llvm-sources/ pull --all
@@ -47,19 +56,7 @@ FROM llvm-sources AS builder
 LABEL maintainer "Eric Fiselier"
 
 
-RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" 10
-RUN clang++ --version
-# /tmp/install-clang-packages.sh --version ${VERSION} && rm /tmp/install-clang-packages.sh
-
-ARG CMAKE_VERSION=3.18.2
-
-RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-Linux-x86_64.sh -O /tmp/install.sh \
-  && sh  /tmp/install.sh --prefix=/usr/local --exclude-subdir \
-  && rm /tmp/install.sh
-
-
 ARG cache_date=none
-
 ARG branch
 
 RUN cd /llvm-sources/ \
@@ -72,7 +69,6 @@ RUN cd /llvm-sources/ \
   && ln -s $PWD/compiler-rt $PWD/llvm/projects/compiler-rt \
   && ln -s $PWD/clang $PWD/llvm/tools/clang \
   && ln -s $PWD/clang-tools-extra $PWD/llvm/tools/clang/tools/extra
-
 
 ARG CC=clang
 ARG CXX=clang++
