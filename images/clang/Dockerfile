@@ -9,9 +9,9 @@
 # Build GCC versions
 FROM debian:stretch AS llvm-sources
 
-RUN echo "Installing git...." \
+RUN echo "Installing packages...." \
   && apt-get update \
-  && apt-get install -y --no-install-recommends \
+  && apt-get install -y  \
            ca-certificates \
            gnupg \
            build-essential \
@@ -33,6 +33,7 @@ RUN echo "Installing git...." \
            ninja-build \
            python \
            apt-transport-https \
+           lsb-release \
   && rm -rf /var/lib/apt/lists/*
 
 RUN echo "Checking out full LLVM..." \
