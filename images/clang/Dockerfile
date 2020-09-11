@@ -89,7 +89,6 @@ RUN mkdir /tmp/llvm-build && cd /tmp/llvm-build \
       -DLLVM_INSTALL_TOOLCHAIN_ONLY=ON \
       /llvm-sources/llvm/
 
-RUN ninja -C /tmp/llvm-build
 RUN ninja -C /tmp/llvm-build install
 
 
