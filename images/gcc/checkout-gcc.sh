@@ -29,6 +29,7 @@ EOF
 GCC_SOURCE_DIR=""
 GCC_BRANCH=""
 CHERRY_PICK=""
+NO_CHECKOUT=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -41,6 +42,10 @@ while [[ $# -gt 0 ]]; do
       shift
       GCC_BRANCH="$1"
       shift
+      ;;
+    --no-checkout)
+      shift
+      NO_CHECKOUT=1
       ;;
     --cherry-pick)
       shift
@@ -70,13 +75,19 @@ fi
 set -x
 
 
-echo "Cloning source directory for branch $GCC_BRANCH"
-git clone --branch "$GCC_BRANCH" --single-branch --depth=1 git://gcc.gnu.org/git/gcc.git $GCC_SOURCE_DIR
+if [ "$NO_CHECKOUT" == "" ]; then
+  echo "Cloning source directory for branch $GCC_BRANCH"
+  git clone --branch "$GCC_BRANCH" --single-branch --depth=1 git://gcc.gnu.org/git/gcc.git $GCC_SOURCE_DIR
+  if [ "$CHERRY_PICK" != "" ]; then
+    git -C "$GCC_SOURCE_DIR" fetch origin master --unshallow # Urg, we have to get the entire history. This will take a while.
+  fi
+else
+  git -C "$GCC_SOURCE_DIR" checkout "$GCC_BRANCH"
+  git -C "$GCC_SOURCE_DIR" pull
+fi
 
-pushd "$GCC_SOURCE_DIR"
 if [ "$CHERRY_PICK" != "" ]; then
-  git fetch origin master --unshallow # Urg, we have to get the entire history. This will take a while.
-  git cherry-pick --no-commit -X theirs "$CHERRY_PICK"
+  git -C "$GCC_SOURCE_DIR" cherry-pick --no-commit -X theirs "$CHERRY_PICK"
 fi
 popd
 

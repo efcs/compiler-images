@@ -7,8 +7,17 @@
 #===-------------------------------------------------------------------------------------------===//
 
 # Build GCC versions
+FROM debian:stretch AS gcc-checkout
+
+RUN mkdir /gcc-source/
+RUN git clone git://gcc.gnu.org/git/gcc.git /gcc-sources/
+RUN git -C /gcc-sources/ pull --all
+
+
 FROM debian:stretch AS builder
 LABEL maintainer "Eric Fiselier"
+
+COPY --from=gcc-checkout /gcc-sources/ /gcc-sources/
 
 ARG cache_date=none
 
@@ -23,6 +32,7 @@ ARG cherry_pick
 
 ADD checkout-gcc.sh /tmp/
 RUN /tmp/checkout-gcc.sh \
+  --no-checkout \
   --destination /gcc-sources/ \
   --branch "$branch" \
   --cherry-pick "$cherry_pick"
