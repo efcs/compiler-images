@@ -12,6 +12,7 @@ FROM debian:stretch AS llvm-sources
 RUN echo "Installing packages...." \
   && apt-get update \
   && apt-get install -y apt-utils \
+  && apt-get upgrade -y \
   && apt-get install -y --no-install-recommends  \
            ca-certificates \
            gnupg \
@@ -46,7 +47,6 @@ FROM llvm-sources AS builder
 LABEL maintainer "Eric Fiselier"
 
 
-ADD install-clang-packages.sh /tmp/
 RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" 10
 RUN clang++ --version
 # /tmp/install-clang-packages.sh --version ${VERSION} && rm /tmp/install-clang-packages.sh
