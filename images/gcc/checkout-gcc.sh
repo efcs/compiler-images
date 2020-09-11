@@ -82,8 +82,9 @@ if [ "$NO_CHECKOUT" == "" ]; then
     git -C "$GCC_SOURCE_DIR" fetch origin master --unshallow # Urg, we have to get the entire history. This will take a while.
   fi
 else
-  git -C "$GCC_SOURCE_DIR" checkout "$GCC_BRANCH"
-  git -C "$GCC_SOURCE_DIR" pull
+
+  git -C "$GCC_SOURCE_DIR" fetch origin "$GCC_BRANCH"
+  git -C "$GCC_SOURCE_DIR" checkout origin "$GCC_BRANCH"
 fi
 
 if [ "$CHERRY_PICK" != "" ]; then
