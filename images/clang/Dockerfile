@@ -43,7 +43,7 @@ RUN echo "Checking out full LLVM..." \
 FROM llvm-sources AS builder
 LABEL maintainer "Eric Fiselier"
 
-ARG VERSION=12
+ARG VERSION=11
 ADD install-clang-packages.sh /tmp/
 RUN /tmp/install-clang-packages.sh --version ${VERSION} && rm /tmp/install-clang-packages.sh
 
