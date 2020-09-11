@@ -12,11 +12,12 @@ FROM debian:stretch AS llvm-sources
 ARG HOST_CLANG_VERSION=12
 
 RUN echo "Installing packages...." \
-  && apt-get update --fix-missing \
-  && apt-get upgrade -y \
-  && apt-get install -y --no-install-recommends \
+  && apt-get update \
+  && apt-get upgrade -y  --fix-missing \
+  && apt-get install -y \
            apt-utils  \
            apt-transport-https \
+           add-apt-repository \
            lsb-release \
            ca-certificates \
            wget \
