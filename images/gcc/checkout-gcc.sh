@@ -90,7 +90,6 @@ fi
 if [ "$CHERRY_PICK" != "" ]; then
   git -C "$GCC_SOURCE_DIR" cherry-pick --no-commit -X theirs "$CHERRY_PICK"
 fi
-popd
 
 # Cleanup.
 rm -rf "$GCC_SOURCE_DIR/.git"
