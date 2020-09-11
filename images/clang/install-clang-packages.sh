@@ -39,15 +39,16 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if [ "$VERSION" == "" ]; then
-  echo "--version must be specified..."
-  exit 1
+LLVM_TOOLCHAIN_REPO="llvm-toolchain-$(lsb_release -cs)"
+
+if [ "$VERSION" != "" ]; then
+  LLVM_TOOLCHAIN_REPO="$LLVM_TOOLCHAIN_REPO-$VERSION"
 fi
 
 set -x
 
 curl -fsSL https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
-add-apt-repository -s "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs) main"
+add-apt-repository -s "deb http://apt.llvm.org/$(lsb_release -cs)/ $LLVM_TOOLCHAIN_REPO main"
 apt-get update
 apt-get upgrade -y
 apt-get install -y --no-install-recommends "clang-$VERSION" "lld-$VERSION"
