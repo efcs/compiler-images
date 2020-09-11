@@ -84,7 +84,7 @@ if [ "$NO_CHECKOUT" == "" ]; then
 else
 
   git -C "$GCC_SOURCE_DIR" fetch origin "$GCC_BRANCH"
-  git -C "$GCC_SOURCE_DIR" checkout origin "$GCC_BRANCH"
+  git -C "$GCC_SOURCE_DIR" checkout "$GCC_BRANCH"
 fi
 
 if [ "$CHERRY_PICK" != "" ]; then
