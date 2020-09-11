@@ -12,16 +12,13 @@ FROM debian:stretch AS llvm-sources
 RUN echo "Installing packages...." \
   && apt-get update \
   && apt-get upgrade -y \
-  && apt-get install -y 
-
-RUN apt-get update \
   && apt-get install -y  \
            apt-utils  \
            apt-transport-https \
            lsb-release \
            ca-certificates \
            wget \
-           software-properties-common
+           software-properties-common \
            gnupg \
            build-essential \
            unzip \
