@@ -9,7 +9,7 @@
 # Build GCC versions
 FROM debian:stretch AS gcc-checkout
 
-RUN mkdir /gcc-source/
+RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
 RUN git clone git://gcc.gnu.org/git/gcc.git /gcc-sources/
 RUN git -C /gcc-sources/ pull --all
 
@@ -37,10 +37,11 @@ RUN /tmp/checkout-gcc.sh \
   --branch "$branch" \
   --cherry-pick "$cherry_pick"
 
-ADD build-gcc.sh /tmp/
-RUN /tmp/build-gcc.sh \
-    --source /gcc-sources/ \
-    --install "/compiler"
 
-FROM debian:stretch AS compiler-image
-COPY --from=builder /compiler/ /compiler/
+#ADD build-gcc.sh /tmp/
+#RUN /tmp/build-gcc.sh \
+#    --source /gcc-sources/ \
+#    --install "/compiler"
+
+#FROM debian:stretch AS compiler-image
+#COPY --from=builder /compiler/ /compiler/
