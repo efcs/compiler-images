@@ -12,14 +12,16 @@ FROM debian:stretch AS llvm-sources
 RUN echo "Installing packages...." \
   && apt-get update \
   && apt-get upgrade -y \
-  && apt-get install -y apt-utils  \
-                        apt-transport-https \
-                        lsb-release \
-                        ca-certificates \
-                        wget \
-                        software-properties-common
+  && apt-get install -y 
+
 RUN apt-get update \
   && apt-get install -y  \
+           apt-utils  \
+           apt-transport-https \
+           lsb-release \
+           ca-certificates \
+           wget \
+           software-properties-common
            gnupg \
            build-essential \
            unzip \
@@ -41,7 +43,7 @@ RUN apt-get update \
 
 RUN wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh \
    && chmod +x /tmp/llvm.sh \
-   && /tmp/llvm.sh 10 \
+   && /tmp/llvm.sh \
    && rm /tmp/llvm.sh
 
 RUN clang++ --version
