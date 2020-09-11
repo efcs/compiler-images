@@ -18,7 +18,6 @@ RUN echo "Installing packages...." \
   && apt-get install -y --fix-missing --no-install-recommends \
                 apt-utils  \
                 apt-transport-https \
-                add-apt-repository \
                 lsb-release \
                 ca-certificates \
                 wget \
