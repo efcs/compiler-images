@@ -39,6 +39,11 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+wget https://apt.llvm.org/llvm.sh -O /tmp/llvm.sh
+chmod +x /tmp/llvm.sh
+/tmp/llvm.sh $VERSION
+
+
 LLVM_TOOLCHAIN_REPO="llvm-toolchain-$(lsb_release -cs)"
 
 if [ "$VERSION" != "" ]; then
@@ -47,13 +52,6 @@ fi
 
 set -x
 
-apt-get update
-wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key| apt-key add -
-add-apt-repository -s "deb http://apt.llvm.org/$(lsb_release -cs)/ $LLVM_TOOLCHAIN_REPO main"
-apt-get update
-
-apt-get upgrade -y
-apt-get install -y --no-install-recommends "clang-$VERSION" "lld-$VERSION"
 
 # FIXME(EricWF): Remove this once the clang packages are no longer broken.
 if [ -f "/usr/local/bin/clang" ]; then
