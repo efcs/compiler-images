@@ -44,7 +44,7 @@ RUN wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh \
    && chmod +x /tmp/llvm.sh \
    && bash /tmp/llvm.sh ${HOST_CLANG_VERSION}
    && ln -s $(which clang-${HOST_CLANG_VERSION}) /usr/local/bin/clang \
-   && ln -s $(which clang++-${HOST_CLANG_VERSION}) /usr/local/bin/clang++ \
+   && ln -s $(which clang++-${HOST_CLANG_VERSION}) /usr/local/bin/clang++
 
 RUN clang++ --version
 
