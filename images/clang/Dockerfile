@@ -12,7 +12,7 @@ FROM debian:stretch AS llvm-sources
 RUN echo "Installing packages...." \
   && apt-get update --fix-missing \
   && apt-get upgrade -y \
-  && apt-get install -y \
+  && apt-get install -y --no-install-recommends \
            apt-utils  \
            apt-transport-https \
            lsb-release \
@@ -40,8 +40,7 @@ RUN echo "Installing packages...." \
 
 RUN wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh \
    && chmod +x /tmp/llvm.sh \
-   && /tmp/llvm.sh \
-   && rm /tmp/llvm.sh
+   && /tmp/llvm.sh
 
 RUN clang++ --version
 
