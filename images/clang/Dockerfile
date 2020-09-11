@@ -60,7 +60,8 @@ ARG branch
 
 RUN cd /llvm-sources/ \
   && git fetch origin "$branch" \
-  && git checkout -b "dummy-branch" "$branch" \
+  && git checkout "$branch" \
+  && git pull \
   && rm -rf .git \
   && ln -s $PWD/libcxx $PWD/llvm/projects/libcxx \
   && ln -s $PWD/libcxxabi $PWD/llvm/projects/libcxxabi \
