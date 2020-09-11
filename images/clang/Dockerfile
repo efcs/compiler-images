@@ -13,16 +13,19 @@ ARG HOST_CLANG_VERSION=11
 
 RUN echo "Installing packages...." \
   && apt-get update \
-  && apt-get upgrade -y  --fix-missing \
+  && apt-get update -y --fix-missing --no-install-recommends \
+                apt-utils  \
+                apt-transport-https \
+                add-apt-repository \
+                lsb-release \
+                ca-certificates \
+                wget \
+                software-properties-common \
+                gnupg
+
+RUN apt-get update --fix-missing \
+  &&  apt-get upgrade -y  --fix-missing \
   && apt-get install -y \
-           apt-utils  \
-           apt-transport-https \
-           add-apt-repository \
-           lsb-release \
-           ca-certificates \
-           wget \
-           software-properties-common \
-           gnupg \
            build-essential \
            unzip \
            automake \
