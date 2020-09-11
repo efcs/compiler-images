@@ -9,7 +9,7 @@
 # Build GCC versions
 FROM debian:stretch AS llvm-sources
 
-ARG HOST_CLANG_VERSION=12
+ARG HOST_CLANG_VERSION=11
 
 RUN echo "Installing packages...." \
   && apt-get update \
@@ -43,7 +43,7 @@ RUN echo "Installing packages...." \
 
 RUN wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh \
    && chmod +x /tmp/llvm.sh \
-   && bash /tmp/llvm.sh ${HOST_CLANG_VERSION} \
+   && bash /tmp/llvm.sh \
    && ln -s $(which clang-${HOST_CLANG_VERSION}) /usr/local/bin/clang \
    && ln -s $(which clang++-${HOST_CLANG_VERSION}) /usr/local/bin/clang++
 
