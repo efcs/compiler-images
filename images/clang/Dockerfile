@@ -10,9 +10,9 @@
 FROM debian:stretch AS llvm-sources
 
 RUN echo "Installing packages...." \
-  && apt-get update \
+  && apt-get update --fix-missing \
   && apt-get upgrade -y \
-  && apt-get install -y  \
+  && apt-get install -y \
            apt-utils  \
            apt-transport-https \
            lsb-release \
