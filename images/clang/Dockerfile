@@ -11,13 +11,17 @@ FROM debian:stretch AS llvm-sources
 
 RUN echo "Installing packages...." \
   && apt-get update \
-  && apt-get install -y apt-utils \
   && apt-get upgrade -y \
-  && apt-get install -y --no-install-recommends  \
-           ca-certificates \
+  && apt-get install -y apt-utils  \
+                        apt-transport-https \
+                        lsb-release \
+                        ca-certificates \
+                        wget \
+                        software-properties-common
+RUN apt-get update \
+  && apt-get install -y  \
            gnupg \
            build-essential \
-           wget \
            unzip \
            automake \
            curl \
@@ -30,13 +34,10 @@ RUN echo "Installing packages...." \
            libtool \
            autoconf \
            binutils-dev \
-           software-properties-common \
            cmake \
            ninja-build \
            python \
-           apt-transport-https \
-           lsb-release \
-  && rm -rf /var/lib/apt/lists/*
+
 
 RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" 10
 RUN clang++ --version
