@@ -43,9 +43,10 @@ RUN echo "Checking out full LLVM..." \
 FROM llvm-sources AS builder
 LABEL maintainer "Eric Fiselier"
 
-ARG VERSION=11
+
 ADD install-clang-packages.sh /tmp/
-RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" 10
+RUN clang++ --version
 # /tmp/install-clang-packages.sh --version ${VERSION} && rm /tmp/install-clang-packages.sh
 
 ARG CMAKE_VERSION=3.18.2
