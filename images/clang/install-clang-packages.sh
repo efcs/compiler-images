@@ -47,10 +47,11 @@ fi
 
 set -x
 
-
+apt-get update
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key| apt-key add -
 add-apt-repository -s "deb http://apt.llvm.org/$(lsb_release -cs)/ $LLVM_TOOLCHAIN_REPO main"
 apt-get update
+
 apt-get upgrade -y
 apt-get install -y --no-install-recommends "clang-$VERSION" "lld-$VERSION"
 
