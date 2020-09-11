@@ -20,7 +20,7 @@ Available options:
 EOF
 }
 
-VERSION="11"
+VERSION=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -38,6 +38,11 @@ while [[ $# -gt 0 ]]; do
       exit 1
   esac
 done
+
+if [ "$VERSION" == "" ]; then
+  echo "--version must be specified..."
+  exit 1
+fi
 
 set -x
 

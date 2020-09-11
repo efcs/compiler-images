@@ -28,8 +28,10 @@ EOF
 }
 
 LLVM_BRANCH=""
+LLVM_SOURCE_DIR=""
 CMAKE_ARGS=""
 LLVM_INSTALL_DIR=""
+NO_CHECKOUT=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -38,9 +40,9 @@ while [[ $# -gt 0 ]]; do
       LLVM_INSTALL_DIR="$1"
       shift
       ;;
-    --branch)
+    --source)
       shift
-      LLVM_BRANCH="$1"
+      LLVM_SOURCE_DIR="$1"
       shift
       ;;
     --)
@@ -64,10 +66,11 @@ if [ "$LLVM_INSTALL_DIR" == "" ]; then
   exit 1
 fi
 
-if [ "$LLVM_BRANCH" == "" ]; then
-  echo "No install directory. Please specify the --branch argument."
+if [ "$LLVM_SOURCE_DIR" == "" ]; then
+  echo "No source directory. Please specify the --source argument."
   exit 1
 fi
+
 
 if [ "$CMAKE_ARGS" == "" ]; then
   CMAKE_ARGS="-DCMAKE_BUILD_TYPE=RELEASE '-DCMAKE_C_FLAGS=-gline-tables-only' '-DCMAKE_CXX_FLAGS=-gline-tables-only' -DLLVM_ENABLE_ASSERTIONS=ON -DLLVM_ENABLE_WARNINGS=OFF -DLLVM_INSTALL_TOOLCHAIN_ONLY=ON"
@@ -76,13 +79,13 @@ fi
 set -x
 
 TMP_ROOT="$(mktemp -d -p /tmp)"
-LLVM_SOURCE_DIR="$TMP_ROOT/llvm-project"
+
 LLVM_BUILD_DIR="$TMP_ROOT/build"
 LLVM="$LLVM_SOURCE_DIR/llvm"
 
-git clone --branch $LLVM_BRANCH --single-branch --depth=1 https://github.com/llvm/llvm-project.git $LLVM_SOURCE_DIR
 
 pushd "$LLVM_SOURCE_DIR"
+
 
 # Setup the source-tree using the old style layout
 ln -s $LLVM_SOURCE_DIR/libcxx $LLVM/projects/libcxx

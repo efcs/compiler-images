@@ -7,19 +7,68 @@
 #===----------------------------------------------------------------------===//
 
 # Build GCC versions
-FROM debian:stretch AS builder
+FROM debian:stretch AS llvm-sources
+
+RUN echo "Installing git...." \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends \
+           ca-certificates \
+           gnupg \
+           build-essential \
+           wget \
+           unzip \
+           automake \
+           curl \
+           git \
+           gcc-multilib \
+           g++-multilib \
+           libc6-dev \
+           bison \
+           flex \
+           libtool \
+           autoconf \
+           binutils-dev \
+           software-properties-common \
+           cmake \
+           ninja-build \
+           python \
+           apt-transport-https \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN echo "Checking out full LLVM..." \
+    && git clone  https://github.com/llvm/llvm-project.git /llvm-sources \
+    && git -C /llvm-sources/ pull --all
+
+
+FROM llvm-sources AS builder
 LABEL maintainer "Eric Fiselier"
 
-ARG cache_date=none
-
-ADD install-clang-build-env.sh /tmp/
-RUN /tmp/install-clang-build-env.sh && rm /tmp/install-clang-build-env.sh
-
-ARG VERSION=11
+ARG VERSION=12
 ADD install-clang-packages.sh /tmp/
 RUN /tmp/install-clang-packages.sh --version ${VERSION} && rm /tmp/install-clang-packages.sh
 
+ARG CMAKE_VERSION=3.18.2
+
+RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-Linux-x86_64.sh -O /tmp/install.sh \
+  && sh  /tmp/install.sh --prefix=/usr/local --exclude-subdir \
+  && rm /tmp/install.sh
+
+
+ARG cache_date=none
+
 ARG branch
+
+RUN cd /llvm-sources/ \
+  && git fetch origin "$branch" \
+  && git checkout "$branch" \
+  && git pull \
+  && rm -rf .git \
+  && ln -s $PWD/libcxx $PWD/llvm/projects/libcxx \
+  && ln -s $PWD/libcxxabi $PWD/llvm/projects/libcxxabi \
+  && ln -s $PWD/compiler-rt $PWD/llvm/projects/compiler-rt \
+  && ln -s $PWD/clang $PWD/llvm/tools/clang \
+  && ln -s $PWD/clang-tools-extra $PWD/llvm/tools/clang/tools/extra
+
 
 ARG CC=clang
 ARG CXX=clang++
@@ -27,9 +76,20 @@ ARG CXX=clang++
 ENV CC $CC
 ENV CXX $CXX
 
-ADD build-llvm-version.sh /tmp/
-RUN /tmp/build-llvm-version.sh --install "/compiler" --branch "$branch" \
-  && rm /tmp/build-llvm-version.sh
+RUN mkdir /tmp/llvm-build && cd /tmp/llvm-build \
+  && cmake -GNinja \
+      -DCMAKE_INSTALL_PREFIX="/compiler" \
+      "-DCMAKE_C_COMPILER=$CC" \
+      "-DCMAKE_CXX_COMPILER=$CXX" \
+      -DCMAKE_BUILD_TYPE=RELEASE \
+      "-DCMAKE_CXX_FLAGS=-gline-tables-only" \
+      "-DCMAKE_C_FLAGS=-gline-tables-only" \
+      -DLLVM_ENABLE_ASSERTIONS=ON \
+      -DLLVM_ENABLE_WARNINGS=OFF \
+      -DLLVM_INSTALL_TOOLCHAIN_ONLY=ON \
+      /llvm-sources/llvm/
+
+RUN ninja -C /tmp/llvm-build install
 
 
 FROM debian:stretch AS compiler-image
