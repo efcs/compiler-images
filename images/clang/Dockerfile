@@ -9,7 +9,7 @@
 # Build GCC versions
 FROM debian:stretch AS llvm-sources
 
-ARG HOST_CLANG_VERSION=11
+ARG HOST_CLANG_VERSION=12
 
 RUN echo "Installing packages...." \
   && apt-get update --fix-missing \
