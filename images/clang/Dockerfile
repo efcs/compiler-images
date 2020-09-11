@@ -13,7 +13,7 @@ ARG HOST_CLANG_VERSION=11
 
 RUN echo "Installing packages...." \
   && apt-get update \
-  && apt-get upgrade \
+  && apt-get upgrade -y  \
   && apt-get install -y --fix-missing --no-install-recommends \
                 apt-utils  \
                 apt-transport-https \
