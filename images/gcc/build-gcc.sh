@@ -27,6 +27,7 @@ EOF
 GCC_INSTALL_DIR=""
 GCC_SOURCE_DIR=""
 
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --install)
@@ -60,6 +61,7 @@ fi
 
 
 set -x
+
 
 NPROC=`nproc`
 TMP_ROOT="$(mktemp -d -p /tmp)"
