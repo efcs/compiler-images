@@ -36,10 +36,14 @@ RUN apt-get update \
            binutils-dev \
            cmake \
            ninja-build \
-           python \
+           python
 
 
-RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" 10
+RUN wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh \
+   && chmod +x /tmp/llvm.sh \
+   && /tmp/llvm.sh 10 \
+   && rm /tmp/llvm.sh
+
 RUN clang++ --version
 
 ARG CMAKE_VERSION=3.18.2
