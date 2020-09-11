@@ -28,8 +28,8 @@ RUN echo "Installing packages...." \
            automake \
            curl \
            git \
-           gcc-multilib \
-           g++-multilib \
+           'gcc-multilib' \
+           'g++-multilib' \
            libc6-dev \
            bison \
            flex \
