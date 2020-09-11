@@ -26,7 +26,7 @@ RUN echo "Installing packages...." \
 
 RUN apt-get update --fix-missing \
   &&  apt-get upgrade -y  --fix-missing \
-  && apt-get install -y \
+  && apt-get install -y --no-install-recommends \
            build-essential \
            unzip \
            automake \
@@ -45,9 +45,11 @@ RUN apt-get update --fix-missing \
            python
 
 
-RUN wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh \
+RUN wget https://apt.llvm.org/llvm.sh -O /tmp/llvm.sh \
    && chmod +x /tmp/llvm.sh \
-   && /tmp/llvm.sh \
+   && /tmp/llvm.sh
+
+RUN echo "Linking stuff" \
    && ln -s $(which clang-${HOST_CLANG_VERSION}) /usr/local/bin/clang \
    && ln -s $(which clang++-${HOST_CLANG_VERSION}) /usr/local/bin/clang++
 
