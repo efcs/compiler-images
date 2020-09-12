@@ -13,9 +13,7 @@ ARG HOST_CLANG_VERSION=10
 
 RUN echo "Installing packages...." \
   && apt-get update \
-  && apt-get install -y --no-install-recommends --fix-missing apt-utils  \
-  && apt-get upgrade -y  \
-  && apt-get install -y --fix-missing --no-install-recommends \
+  && apt-get install -y \
                 apt-utils  \
                 apt-transport-https \
                 lsb-release \
@@ -24,8 +22,9 @@ RUN echo "Installing packages...." \
                 software-properties-common \
                 gnupg
 
-RUN apt-get update --fix-missing \
-  &&  apt-get upgrade -y  --fix-missing \
+
+
+RUN apt-get update  \
   && apt-get install -y --no-install-recommends \
            build-essential \
            unzip \
@@ -45,9 +44,11 @@ RUN apt-get update --fix-missing \
            python
 
 
+
 RUN wget https://apt.llvm.org/llvm.sh -O /tmp/llvm.sh \
    && chmod +x /tmp/llvm.sh \
    && /tmp/llvm.sh ${HOST_CLANG_VERSION}
+
 
 RUN echo "Linking stuff" \
    && ln -s $(which clang-${HOST_CLANG_VERSION}) /usr/local/bin/clang \
