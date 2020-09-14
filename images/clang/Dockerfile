@@ -87,9 +87,11 @@ RUN cd /llvm-sources/ \
 
 ARG CC=clang
 ARG CXX=clang++
+ARG FLAGS=-gline-tables-only
 
 ENV CC $CC
 ENV CXX $CXX
+ENV FLAGS $FLAGS
 
 RUN mkdir /tmp/llvm-build && cd /tmp/llvm-build \
   && cmake -GNinja \
@@ -97,12 +99,13 @@ RUN mkdir /tmp/llvm-build && cd /tmp/llvm-build \
       "-DCMAKE_C_COMPILER=$CC" \
       "-DCMAKE_CXX_COMPILER=$CXX" \
       -DCMAKE_BUILD_TYPE=RELEASE \
-      "-DCMAKE_CXX_FLAGS=-gline-tables-only" \
-      "-DCMAKE_C_FLAGS=-gline-tables-only" \
+      "-DCMAKE_CXX_FLAGS=$FLAGS" \
+      "-DCMAKE_C_FLAGS=$FLAGS" \
       -DLLVM_ENABLE_ASSERTIONS=ON \
       -DLLVM_ENABLE_WARNINGS=OFF \
       -DLLVM_INSTALL_TOOLCHAIN_ONLY=ON \
-      /llvm-sources/llvm/
+      /llvm-sources/llvm/ \
+      || cat /tmp/llvm-build/CMakeFiles/CMakeError.log
 
 RUN ninja -C /tmp/llvm-build install
 

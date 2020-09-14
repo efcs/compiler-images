@@ -60,6 +60,7 @@ services:
         branch: release/3.6.x
         CC: gcc
         CXX: g++
+        FLAGS: -g1
     image: ericwf/llvm:3.6.x
   llvm-3.7:
     build:
@@ -68,6 +69,7 @@ services:
         branch: release/3.7.x
         CC: gcc
         CXX: g++
+        FLAGS: -g1
     image: ericwf/llvm:3.7.x
   llvm-3.8:
     build:
@@ -76,6 +78,7 @@ services:
         branch: release/3.8.x
         CC: gcc
         CXX: g++
+        FLAGS: -g1
     image: ericwf/llvm:3.8.x
   llvm-3.9:
     build:
@@ -84,6 +87,7 @@ services:
         branch: release/3.9.x
         CC: gcc
         CXX: g++
+        FLAGS: -g1
     image: ericwf/llvm:3.9.x
   llvm-4:
     build:
@@ -92,6 +96,7 @@ services:
         branch: release/4.x
         CC: gcc
         CXX: g++
+        FLAGS: -g1
     image: ericwf/llvm:4.x
   llvm-5:
     build:
