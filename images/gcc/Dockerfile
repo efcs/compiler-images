@@ -39,8 +39,6 @@ LABEL maintainer "Eric Fiselier"
 
 ARG cache_date=none
 
-RUN apt-get update && apt-get upgrade && rm -rf /var/lib/apt/lists/*
-
 
 #===------------------------------------------------------------------------===#
 # Configuration
