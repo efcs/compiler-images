@@ -116,12 +116,12 @@ services:
       args:
         branch: release/7.x
     image: ericwf/llvm:7.x
-  llvm-8:
-    build:
-      <<: *build-clang
-      args:
-        branch: release/8.x
-    image: ericwf/llvm:8.x
+#  llvm-8:
+#    build:
+#      <<: *build-clang
+#      args:
+#        branch: release/8.x
+#    image: ericwf/llvm:8.x
   llvm-9:
     build:
       <<: *build-clang
@@ -145,13 +145,13 @@ services:
       <<: *build-gcc
       args:
         branch: master
-        cache_date: '2020-09-11'
-    image: ericwf/gcc:trunk-2020-09-11
+        cache_date: '2020-09-14'
+    image: ericwf/gcc:trunk-2020-09-14
   llvm-tot:
     build:
       <<: *build-clang
       args:
         branch: master
-        cache_date: '2020-09-11'
-    image: ericwf/llvm:trunk-2020-09-11
+        cache_date: '2020-09-14'
+    image: ericwf/llvm:trunk-2020-09-14
 
