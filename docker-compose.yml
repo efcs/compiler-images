@@ -52,6 +52,12 @@ services:
       args:
         branch: releases/gcc-9.2.0
     image: ericwf/gcc:9.2.0
+  gcc-10:
+    build:
+      <<: *build-gcc
+      args:
+        branch: releases/gcc-10.2.0
+    image: ericwf/gcc:10.2.0
   # Add LLVM compilers
   llvm-3.6:
     build:
@@ -145,13 +151,13 @@ services:
       <<: *build-gcc
       args:
         branch: master
-        cache_date: '2020-09-14'
-    image: ericwf/gcc:trunk-2020-09-14
+        cache_date: '2020-09-23'
+    image: ericwf/gcc:trunk-2020-09-23
   llvm-tot:
     build:
       <<: *build-clang
       args:
         branch: master
-        cache_date: '2020-09-14'
-    image: ericwf/llvm:trunk-2020-09-14
+        cache_date: '2020-09-23'
+    image: ericwf/llvm:trunk-2020-09-23
 
